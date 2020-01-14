@@ -7,14 +7,19 @@ import (
 )
 
 type Encoding string
+
 const (
-	EncodingGob Encoding = "gob"
+	EncodingGob    Encoding = "gob"
 	EncodingSnappy Encoding = "snappy"
-	EncodingJSON Encoding = "json"
+	EncodingJSON   Encoding = "json"
 )
 
 type Transcoder struct {
 	Encoding Encoding
+}
+
+func New(encoding Encoding) *Transcoder {
+	return &Transcoder{Encoding: encoding}
 }
 
 func (t *Transcoder) Encode(in interface{}) ([]byte, error) {
@@ -30,7 +35,7 @@ func (t *Transcoder) Encode(in interface{}) ([]byte, error) {
 	}
 }
 
-func (t *Transcoder)  Decode(in []byte, out interface{}) error {
+func (t *Transcoder) Decode(in []byte, out interface{}) error {
 	switch t.Encoding {
 	case EncodingSnappy:
 		return proto.DecodeSnappy(in, out)
