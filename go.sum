@@ -10,10 +10,8 @@ github.com/Azure/go-autorest/logger v0.1.0/go.mod h1:oExouG+K6PryycPJfVSxi/koC6L
 github.com/Azure/go-autorest/tracing v0.5.0/go.mod h1:r/s2XiOKccPW3HrqB+W0TQzfbtp2fGCgRFtBroKn4Dk=
 github.com/BurntSushi/toml v0.3.1 h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
-github.com/MagalixCorp/magalix-agent v0.0.0-20191230125913-a253e118cb81 h1:IBRIJm0BAS95+qVOLCjB72KEl1JDtEtGqtyi6rB8nQA=
-github.com/MagalixCorp/magalix-agent v0.0.0-20191230125913-a253e118cb81/go.mod h1:2rmemqADMHm0fxvgko1/FVMBq7bvU2/QxEvoo8WJ/EI=
-github.com/MagalixCorp/magalix-agent v0.0.0-20200113165959-0c29e9659293 h1:37CmY47stm1z2kbs/3X8JIbx+PclQIbLj771ekfr494=
-github.com/MagalixCorp/magalix-agent v0.0.0-20200113165959-0c29e9659293/go.mod h1:YTEF0Khh1CEkcAiHmdX0OLNPbruavoAGBk36k6zOHP4=
+github.com/MagalixCorp/magalix-agent v0.0.0-20200115000009-87e1c6775479 h1:qCMifsFdOvsYcMwBYGhbdGPTh4BkYSyXVNLQ9RC1ypU=
+github.com/MagalixCorp/magalix-agent v0.0.0-20200115000009-87e1c6775479/go.mod h1:CcZLzXBbp/IS7YWuQiZxvD0OD7u9Co29GwiFGH0ZdYU=
 github.com/MagalixTechnologies/alltogether-go v0.0.0-20181206150142-f01ae5621759 h1:8V72GSS3c1fQTxT7vZVBTxjmSLlWtUgzTu1ffNmDFAA=
 github.com/MagalixTechnologies/alltogether-go v0.0.0-20181206150142-f01ae5621759/go.mod h1:k5aVAieJKYXm5TWn/r5DX046/0TlgevYd/mWdY243Dw=
 github.com/MagalixTechnologies/channel v1.1.0/go.mod h1:RPmBuLy/nk8lDIDKucBb6YxCaSM4PJeUkD5Cuynna3s=
@@ -90,6 +88,7 @@ github.com/kovetskiy/lorg v0.0.0-20200107130803-9a7136a95634 h1:szpgh20EtHoQhJ38
 github.com/kovetskiy/lorg v0.0.0-20200107130803-9a7136a95634/go.mod h1:B8HeKAukXULNzWWsW5k/SQyDkiQZPn7lTBJDB46MZ9I=
 github.com/kr/pretty v0.1.0 h1:L/CwN0zerZDmRFUapSPitk6f+Q3+0za1rQkzVuMiMFI=
 github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORNo=
+github.com/kr/pretty v0.2.0 h1:s5hAObm+yFO5uHYt5dYjxi2rXrsnmRpJx4OYvIWUaQs=
 github.com/kr/pretty v0.2.0/go.mod h1:ipq/a2n7PKx3OHsz4KJII5eveXtPO4qwEXGdVfWzfnI=
 github.com/kr/pty v1.1.1/go.mod h1:pFQYn66WHrOpPYNljwOMqo10TkYh1fy3cYio2l3bCsQ=
 github.com/kr/text v0.1.0 h1:45sCR5RtlFHMR4UwH9sdQ5TC8v0qDQCHnXt+kaKSTVE=
@@ -205,6 +204,7 @@ google.golang.org/grpc v1.19.0/go.mod h1:mqu4LbDTu4XGKhr4mRzUsmM4RtVoemTSY81AxZi
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 h1:qIbj1fsPNlZgppZ+VLlY7N33q108Sa+fhmuc+sWQYwY=
 gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
+gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 h1:YR8cESwS4TdDjEe65xsg0ogRM/Nc3DYOhEAlW+xobZo=
 gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/fsnotify.v1 v1.4.7/go.mod h1:Tz8NjZHkW78fSQdbUxIjBTcgA1z1m8ZHf0WmKUhAMys=
 gopkg.in/inf.v0 v0.9.1 h1:73M5CoZyi3ZLMOyDlQh031Cx6N9NDJ2Vvfl76EDAgDc=
