@@ -72,23 +72,10 @@ func Log(level Level) func(h http.Handler) http.Handler {
 				"method", r.Method,
 				"url", r.URL.String(),
 				"status", rw.StatusCode,
-				"from", from(r),
 				"duration", time.Since(started).String(),
 			)
 		})
 	}
-}
-
-func from(req *http.Request) string {
-	if f := req.Header.Get("X-Forwarded-For"); f != "" {
-		return f
-	}
-	f := req.RemoteAddr
-	ip, _, err := net.SplitHostPort(f)
-	if err != nil {
-		return f
-	}
-	return ip
 }
 
 func getRequestId(r *http.Request) interface{} {
