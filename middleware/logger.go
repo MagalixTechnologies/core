@@ -9,7 +9,6 @@ import (
 	http_middleware "goa.design/goa/v3/http/middleware"
 	"goa.design/goa/v3/middleware"
 	"io"
-	"net"
 	"net/http"
 	"time"
 )
