@@ -4,8 +4,8 @@ import (
 	"context"
 	"crypto/rand"
 	"encoding/base64"
+	log "github.com/MagalixTechnologies/core/logger"
 	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
 	http_middleware "goa.design/goa/v3/http/middleware"
 	"goa.design/goa/v3/middleware"
 	"io"
@@ -15,39 +15,11 @@ import (
 
 var logger *zap.Logger
 
-type Level int8
-
 const loggerKey string = "logger"
 
-const (
-	DebugLevel Level = iota - 1
-	InfoLevel
-	WarnLevel
-	ErrorLevel
-)
-
-func getLevel(level Level) zapcore.Level {
-	switch level {
-	case InfoLevel:
-		return zapcore.InfoLevel
-	case DebugLevel:
-		return zapcore.DebugLevel
-	case WarnLevel:
-		return zapcore.WarnLevel
-	case ErrorLevel:
-		return zapcore.ErrorLevel
-	default:
-		return zapcore.InfoLevel
-	}
-}
-
-func getSugarLogger(level Level) *zap.SugaredLogger {
+func getSugarLogger(level log.Level) *zap.SugaredLogger {
 	if logger == nil {
-		core := zap.NewProductionConfig()
-		core.Level = zap.NewAtomicLevelAt(getLevel(level))
-		core.EncoderConfig.TimeKey = "timestamp"
-		core.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
-		logger, _ = core.Build()
+		logger = log.New(level)
 	}
 	return logger.Sugar()
 }
@@ -56,7 +28,7 @@ func GetLoggerFromContext(c context.Context) *zap.SugaredLogger {
 	return c.Value(loggerKey).(*zap.SugaredLogger)
 }
 
-func Log(level Level) func(h http.Handler) http.Handler {
+func Log(level log.Level) func(h http.Handler) http.Handler {
 	return func(h http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			reqID := getRequestId(r)
