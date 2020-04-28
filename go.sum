@@ -15,6 +15,8 @@ github.com/MagalixCorp/magalix-agent v0.0.0-20200115000009-87e1c6775479/go.mod h
 github.com/MagalixTechnologies/alltogether-go v0.0.0-20181206150142-f01ae5621759 h1:8V72GSS3c1fQTxT7vZVBTxjmSLlWtUgzTu1ffNmDFAA=
 github.com/MagalixTechnologies/alltogether-go v0.0.0-20181206150142-f01ae5621759/go.mod h1:k5aVAieJKYXm5TWn/r5DX046/0TlgevYd/mWdY243Dw=
 github.com/MagalixTechnologies/channel v1.1.0/go.mod h1:RPmBuLy/nk8lDIDKucBb6YxCaSM4PJeUkD5Cuynna3s=
+github.com/MagalixTechnologies/core/logger v0.0.0-20200428124307-d3fc6f279f8b h1:cIFLaNd3u7LeJWcL/ZiRY0T3UjFiWL9eDZJVDNdEm5c=
+github.com/MagalixTechnologies/core/logger v0.0.0-20200428124307-d3fc6f279f8b/go.mod h1:HUb6GF/FKiBWkVCiRNCpxo3btqIxp8Ek4HZNt4Ga0KA=
 github.com/MagalixTechnologies/log-go v0.0.0-20191209143418-aff8f3a92a31 h1:c85TW89gtGgHv08tvevENdbdY2UOsHMsfJSw+zOgFqQ=
 github.com/MagalixTechnologies/log-go v0.0.0-20191209143418-aff8f3a92a31/go.mod h1:o73Cm0pMVqKgGLDQuaZXkYxmwIVqzfF7URcLloyCmP8=
 github.com/MagalixTechnologies/uuid-go v0.0.0-20191003092420-742176f3bcb7/go.mod h1:vQb1eXhfh+tMJjQQ0Xv9zx8M9qLYpqEDtWrTD89g8Ko=
@@ -202,6 +204,8 @@ go.uber.org/multierr v1.5.0/go.mod h1:FeouvMocqHpRaaGuG9EjoKcStLC43Zu/fmqdUMPcKY
 go.uber.org/tools v0.0.0-20190618225709-2cfd321de3ee/go.mod h1:vJERXedbb3MVM5f9Ejo0C68/HhF8uaILCdgjnY+goOA=
 go.uber.org/zap v1.14.1 h1:nYDKopTbvAPq/NrUVZwT15y2lpROBiLLyoRTbXOYWOo=
 go.uber.org/zap v1.14.1/go.mod h1:Mb2vm2krFEG5DV0W9qcHBYFtp/Wku1cvYaqPsS/WYfc=
+go.uber.org/zap v1.15.0 h1:ZZCA22JRF2gQE5FoNmhmrf7jeJJ2uhqDUNRYKm8dvmM=
+go.uber.org/zap v1.15.0/go.mod h1:Mb2vm2krFEG5DV0W9qcHBYFtp/Wku1cvYaqPsS/WYfc=
 goa.design/goa v2.1.1+incompatible h1:qCKBx82o+GgqOXyFXmt7Nh98Ogl8YqwJ7fvOruq8idU=
 goa.design/goa/v3 v3.1.1 h1:VrRx+dSq83Y0f7V3blhSwWIM3Sx5wd1kqe+/LLHSFOg=
 goa.design/goa/v3 v3.1.1/go.mod h1:90w3IQQ3Itmh1yVz7mdLnG7owsHORPzWt1FYBGYPy2s=

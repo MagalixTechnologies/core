@@ -4,13 +4,14 @@ import (
 	"context"
 	"crypto/rand"
 	"encoding/base64"
-	log "github.com/MagalixTechnologies/core/logger"
-	"go.uber.org/zap"
-	http_middleware "goa.design/goa/v3/http/middleware"
-	"goa.design/goa/v3/middleware"
 	"io"
 	"net/http"
 	"time"
+
+	log "github.com/MagalixTechnologies/core/logger"
+	"go.uber.org/zap"
+	http_middleware "goa.design/goa/v3/http/middleware"
+	goa_middeware "goa.design/goa/v3/middleware"
 )
 
 var logger *zap.Logger
@@ -50,7 +51,7 @@ func Log(level log.Level) func(h http.Handler) http.Handler {
 }
 
 func getRequestId(r *http.Request) interface{} {
-	reqID := r.Context().Value(middleware.RequestIDKey)
+	reqID := r.Context().Value(goa_middeware.RequestIDKey)
 	if reqID == nil {
 		reqID = shortID()
 	}
