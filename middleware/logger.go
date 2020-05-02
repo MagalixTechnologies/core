@@ -9,24 +9,23 @@ import (
 	"time"
 
 	log "github.com/MagalixTechnologies/core/logger"
-	"go.uber.org/zap"
 	http_middleware "goa.design/goa/v3/http/middleware"
 	goa_middeware "goa.design/goa/v3/middleware"
 )
 
-var logger *zap.Logger
-
 const loggerKey string = "logger"
 
-func getSugarLogger(level log.Level) *zap.SugaredLogger {
+var logger log.Logger
+
+func getSugarLogger(level log.Level) log.Logger {
 	if logger == nil {
 		logger = log.New(level)
 	}
-	return logger.Sugar()
+	return logger
 }
 
-func GetLoggerFromContext(c context.Context) *zap.SugaredLogger {
-	return c.Value(loggerKey).(*zap.SugaredLogger)
+func GetLoggerFromContext(c context.Context) log.Logger {
+	return c.Value(loggerKey).(log.Logger)
 }
 
 func Log(level log.Level) func(h http.Handler) http.Handler {
