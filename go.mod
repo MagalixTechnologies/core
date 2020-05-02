@@ -4,7 +4,7 @@ go 1.12
 
 require (
 	github.com/MagalixCorp/magalix-agent v0.0.0-20200115000009-87e1c6775479
-	github.com/MagalixTechnologies/core/logger v0.0.0-20200428124307-d3fc6f279f8b
+	github.com/MagalixTechnologies/core/logger v0.0.0-20200502225936-190fb417ea6d
 	github.com/dimfeld/httptreemux/v5 v5.1.0 // indirect
 	github.com/gorilla/websocket v1.4.2 // indirect
 	github.com/kovetskiy/lorg v0.0.0-20200107130803-9a7136a95634 // indirect

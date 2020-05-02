@@ -3,6 +3,8 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/MagalixTechnologies/core v0.0.0-20200429222314-736083e276b6 h1:Jk2PIwmpTYv08Fj+94yiNshUqamPwU3JYq6KSgX7nCA=
 github.com/MagalixTechnologies/core/logger v0.0.0-20200429222314-736083e276b6 h1:KV8Uzk1v2e9aE7Q4tRLsTlsISzmkbWGGOAxvKQZa+68=
 github.com/MagalixTechnologies/core/logger v0.0.0-20200429222314-736083e276b6/go.mod h1:HUb6GF/FKiBWkVCiRNCpxo3btqIxp8Ek4HZNt4Ga0KA=
+github.com/MagalixTechnologies/core/logger v0.0.0-20200502225936-190fb417ea6d h1:vc7+ZYU0+qjJCh2WFqko+xadBrdDlB9ki/qjt605qYo=
+github.com/MagalixTechnologies/core/logger v0.0.0-20200502225936-190fb417ea6d/go.mod h1:HUb6GF/FKiBWkVCiRNCpxo3btqIxp8Ek4HZNt4Ga0KA=
 github.com/PuerkitoBio/purell v1.1.0/go.mod h1:c11w/QuzBsJSee3cPx9rAFu61PvFxuPbtSwDGJws/X0=
 github.com/PuerkitoBio/purell v1.1.1/go.mod h1:c11w/QuzBsJSee3cPx9rAFu61PvFxuPbtSwDGJws/X0=
 github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578/go.mod h1:uGdkoq3SwY9Y+13GIhn11/XLaGBb4BfwItxLd5jeuXE=
