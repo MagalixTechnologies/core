@@ -19,8 +19,10 @@
     After implementing this method, you can use any of the methods of type zap.SugaredLogger and the same request id for the request will be printed with your log.
     Here is an example of how to apply this:
         ```go
-      logger := mw.GetLoggerFromContext(context)
-      logger.Infow("Add", "a", p.A, "b", p.B)  
+      logger, ok := mw.GetLoggerFromContext(context)
+      if ok {
+        logger.Infow("Add", "a", p.A, "b", p.B)  
+      }
         ```
 
      - If I apply both these methods I will get an output like this:
@@ -28,3 +30,4 @@
           {"level":"info","timestamp":"2020-04-16T01:40:13.092+0200","caller":"calc/calc.go:24","msg":"Add","requestId":"oabGdo0U","a":123,"b":24}
           {"level":"info","timestamp":"2020-04-16T01:40:13.092+0200","caller":"mw/logger.go:71","msg":"Default Log","requestId":"oabGdo0U","method":"GET","url":"/add/123/24","status":200,"from":"127.0.0.1","duration":"112.34µs"}
          ```
+

@@ -24,8 +24,12 @@ func getSugarLogger(level log.Level) log.Logger {
 	return logger
 }
 
-func GetLoggerFromContext(c context.Context) log.Logger {
-	return c.Value(loggerKey).(log.Logger)
+func GetLoggerFromContext(c context.Context) (log.Logger, bool) {
+	l := c.Value(loggerKey)
+	if l == nil {
+		return nil, false
+	}
+	return l.(log.Logger), true
 }
 
 func Log(level log.Level) func(h http.Handler) http.Handler {
