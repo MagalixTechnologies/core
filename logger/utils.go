@@ -7,6 +7,8 @@ import (
 
 type Level int8
 
+type Logger = *zap.SugaredLogger
+
 const (
 	DebugLevel Level = iota - 1
 	InfoLevel
@@ -14,13 +16,13 @@ const (
 	ErrorLevel
 )
 
-func New(level Level) *zap.Logger {
+func New(level Level) Logger {
 	core := zap.NewProductionConfig()
 	core.Level = zap.NewAtomicLevelAt(getLevel(level))
 	core.EncoderConfig.TimeKey = "timestamp"
 	core.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
 	logger, _ := core.Build()
-	return logger
+	return logger.Sugar()
 }
 
 func getLevel(level Level) zapcore.Level {

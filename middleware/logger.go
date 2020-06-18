@@ -9,24 +9,27 @@ import (
 	"time"
 
 	log "github.com/MagalixTechnologies/core/logger"
-	"go.uber.org/zap"
 	http_middleware "goa.design/goa/v3/http/middleware"
-	goa_middeware "goa.design/goa/v3/middleware"
 )
 
-var logger *zap.Logger
-
 const loggerKey string = "logger"
+const requestIDKey string = "requestID"
 
-func getSugarLogger(level log.Level) *zap.SugaredLogger {
+var logger log.Logger
+
+func getSugarLogger(level log.Level) log.Logger {
 	if logger == nil {
 		logger = log.New(level)
 	}
-	return logger.Sugar()
+	return logger
 }
 
-func GetLoggerFromContext(c context.Context) *zap.SugaredLogger {
-	return c.Value(loggerKey).(*zap.SugaredLogger)
+func GetLoggerFromContext(c context.Context) (log.Logger, bool) {
+	l := c.Value(loggerKey)
+	if l == nil {
+		return nil, false
+	}
+	return l.(log.Logger), true
 }
 
 func Log(level log.Level) func(h http.Handler) http.Handler {
@@ -35,7 +38,10 @@ func Log(level log.Level) func(h http.Handler) http.Handler {
 			reqID := getRequestId(r)
 			sugar := getSugarLogger(level)
 			sugarLogger := sugar.With("requestId", reqID)
+
 			ctx := context.WithValue(r.Context(), loggerKey, sugarLogger)
+			ctx = context.WithValue(ctx, requestIDKey, reqID)
+
 			started := time.Now()
 			rw := http_middleware.CaptureResponse(w)
 			h.ServeHTTP(rw, r.WithContext(ctx))
@@ -51,10 +57,11 @@ func Log(level log.Level) func(h http.Handler) http.Handler {
 }
 
 func getRequestId(r *http.Request) interface{} {
-	reqID := r.Context().Value(goa_middeware.RequestIDKey)
-	if reqID == nil {
+	reqID := r.Header.Get("X-Request-Id")
+	if reqID == "" {
 		reqID = shortID()
 	}
+
 	return reqID
 }
 
