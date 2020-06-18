@@ -11,7 +11,7 @@
 
 - There are 4 levels that can be used; info, error, debug, and warning.
 
-#### Examples in Code
+#### Examples of Usage
 
 ```go
     mgx_middleware "github.com/MagalixTechnologies/core/middleware"
