@@ -31,9 +31,8 @@ func init() {
 	core := zap.NewProductionConfig()
 	core.EncoderConfig.TimeKey = "timestamp"
 	core.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
-	zap.AddCallerSkip(1)
-	logger, _ := core.Build()
-	log = logger.WithOptions(zap.AddCallerSkip(1)).Sugar()
+	customLog, _ := core.Build()
+	log = customLog.WithOptions(zap.AddCallerSkip(1)).Sugar()
 }
 
 // Config sets configurations for global logger
@@ -42,9 +41,8 @@ func Config(level Level) {
 	core.Level = zap.NewAtomicLevelAt(getLevel(level))
 	core.EncoderConfig.TimeKey = "timestamp"
 	core.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
-	zap.AddCallerSkip(1)
-	logger, _ := core.Build()
-	log = logger.WithOptions(zap.AddCallerSkip(1)).Sugar()
+	customLog, _ := core.Build()
+	log = customLog.WithOptions(zap.AddCallerSkip(1)).Sugar()
 }
 
 // With adds a variadic number of fields to the logging context. It accepts a
