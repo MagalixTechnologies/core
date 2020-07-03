@@ -47,6 +47,27 @@ func Config(level Level) {
 	log = logger.WithOptions(zap.AddCallerSkip(1)).Sugar()
 }
 
+// With adds a variadic number of fields to the logging context. It accepts a
+// mix of strongly-typed Field objects and loosely-typed key-value pairs. When
+// processing pairs, the first element of the pair is used as the field key
+// and the second as the field value.
+//
+// For example,
+//   logger.With(
+//     "hello", "world",
+//     "failure", errors.New("oh no"),
+//     Stack(),
+//     "count", 42,
+//     "user", User{Name: "alice"},
+//  )
+//
+// Note that the keys in key-value pairs should be strings.
+// If you pass a non-string key panics a separate error is logged, but the key-value pair is skipped
+// and execution continues. Passing an orphaned key triggers similar behavior
+func With(args ...interface{}) Logger {
+	return log.With(args...)
+}
+
 // Sync flushes any buffered log entries.
 func Sync() error {
 	return log.Sync()
