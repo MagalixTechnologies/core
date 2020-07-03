@@ -47,6 +47,11 @@ func Config(level Level) {
 	log = logger.WithOptions(zap.AddCallerSkip(1)).Sugar()
 }
 
+// Sync flushes any buffered log entries.
+func Sync() error {
+	return log.Sync()
+}
+
 // Debug uses fmt.Sprint to construct and log a message.
 func Debug(args ...interface{}) {
 	log.Debug(args)
