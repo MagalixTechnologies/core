@@ -1,4 +1,5 @@
 # Logger
+- a wrapper over `uber/zap` logger
 - There are 4 levels that can be used; info, error, debug, and warning.
 
 
@@ -22,10 +23,14 @@ logger.Debug("this is a debug log")
 ```
 
 ### Create Custom logger
-sometimes a custom logger is ideal. For example creating a logger that have `request-id` on all the logs. you can create custom logger by using `With` function
+sometimes a custom logger is ideal. For example creating a logger that have `request-id` on all the logs. you can create custom logger by using `With` or `New` function
 
 ```go
 import "github.com/MagalixTechnologies/core/logger"
+// using with will have the global logger log level
 customLogger := logger.With("requestId", reqID)
 customLogger.Info("this is a debug log")
+
+l := logger.New(logger.DebugLevel)
+l.Debug("this is a debug log")
 ```
