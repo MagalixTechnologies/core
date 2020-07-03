@@ -25,14 +25,26 @@ func New(level Level) Logger {
 	return logger.Sugar()
 }
 
+var log Logger
+
+func init() {
+	core := zap.NewProductionConfig()
+	core.EncoderConfig.TimeKey = "timestamp"
+	core.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
+	zap.AddCallerSkip(1)
+	logger, _ := core.Build()
+	log = logger.WithOptions(zap.AddCallerSkip(1)).Sugar()
+}
+
 // Config sets configurations for global logger
 func Config(level Level) {
 	core := zap.NewProductionConfig()
 	core.Level = zap.NewAtomicLevelAt(getLevel(level))
 	core.EncoderConfig.TimeKey = "timestamp"
 	core.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
+	zap.AddCallerSkip(1)
 	logger, _ := core.Build()
-	zap.ReplaceGlobals(logger)
+	log = logger.WithOptions(zap.AddCallerSkip(1)).Sugar()
 }
 
 // Debug uses fmt.Sprint to construct and log a message.
