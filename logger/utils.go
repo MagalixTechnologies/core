@@ -84,6 +84,16 @@ func Info(args ...interface{}) {
 	log.Info(args...)
 }
 
+// Print uses fmt.Sprint to construct and log a message.
+func Print(args ...interface{}) {
+	log.Info(args...)
+}
+
+// Println uses fmt.Sprint to construct and log a message.
+func Println(args ...interface{}) {
+	log.Info(args...)
+}
+
 // Warn uses fmt.Sprint to construct and log a message.
 func Warn(args ...interface{}) {
 	log.Warn(args...)
@@ -117,6 +127,11 @@ func Debugf(template string, args ...interface{}) {
 
 // Infof uses fmt.Sprintf to log a templated message.
 func Infof(template string, args ...interface{}) {
+	log.Infof(template, args...)
+}
+
+// Infof uses fmt.Sprintf to log a templated message.
+func Printf(template string, args ...interface{}) {
 	log.Infof(template, args...)
 }
 
