@@ -58,8 +58,8 @@ func Log(level Level) func(h http.Handler) http.Handler {
 			defer sugarLogger.Sync()
 			sugarLogger.Infow("Default Log",
 				"method", r.Method,
-				"url", r.URL.String(),
-				"status", rw.StatusCode,
+				"endpoint", r.URL.String(),
+				"StatusCode", rw.StatusCode,
 				"duration", time.Since(started).String(),
 			)
 		})
