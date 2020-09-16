@@ -59,7 +59,7 @@ func Log(level Level) func(h http.Handler) http.Handler {
 			sugarLogger.Infow("Default Log",
 				"method", r.Method,
 				"endpoint", r.URL.String(),
-				"StatusCode", rw.StatusCode,
+				"StatusCode", r.Response.StatusCode,
 				"duration", time.Since(started).String(),
 			)
 		})
