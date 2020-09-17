@@ -80,16 +80,3 @@ func shortID() string {
 	io.ReadFull(rand.Reader, b)
 	return base64.RawURLEncoding.EncodeToString(b)
 }
-
-// ResponseCapture is a http.ResponseWriter which captures the response status
-// code and content length.
-type ResponseCapture struct {
-	http.ResponseWriter
-	StatusCode    int
-	ContentLength int
-}
-
-// CaptureResponse creates a ResponseCapture that wraps the given ResponseWriter.
-func captureResponse(w http.ResponseWriter) *ResponseCapture {
-	return &ResponseCapture{ResponseWriter: w}
-}
