@@ -1,6 +1,8 @@
 package logger
 
 import (
+	"os"
+
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -46,6 +48,48 @@ func Config(level Level) {
 	core.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
 	customLog, _ := core.Build()
 	log = customLog.WithOptions(zap.AddCallerSkip(1)).Sugar()
+}
+
+// ConfigWriterSync sets configurations for global logger
+func ConfigWriterSync(level Level, w zapcore.WriteSyncer) {
+	customLog := zap.New(zapcore.NewCore(zapcore.NewJSONEncoder(zapcore.EncoderConfig{
+		TimeKey:        "timestamp",
+		LevelKey:       "level",
+		NameKey:        "logger",
+		CallerKey:      "caller",
+		MessageKey:     "message",
+		StacktraceKey:  "stacktrace",
+		LineEnding:     zapcore.DefaultLineEnding,
+		EncodeLevel:    zapcore.LowercaseLevelEncoder,
+		EncodeTime:     zapcore.ISO8601TimeEncoder,
+		EncodeDuration: zapcore.SecondsDurationEncoder,
+		EncodeCaller:   zapcore.ShortCallerEncoder,
+	}), zapcore.NewMultiWriteSyncer(os.Stdout, w), zap.NewAtomicLevelAt(getLevel(level))))
+
+	log.Desugar().Core()
+
+	log = customLog.WithOptions(zap.AddCaller(), zap.AddCallerSkip(1)).Sugar()
+}
+
+// WithGlobal adds a variadic number of fields to the logging context. It accepts a
+// mix of strongly-typed Field objects and loosely-typed key-value pairs. When
+// processing pairs, the first element of the pair is used as the field key
+// and the second as the field value.
+//
+// For example,
+//   logger.With(
+//     "hello", "world",
+//     "failure", errors.New("oh no"),
+//     Stack(),
+//     "count", 42,
+//     "user", User{Name: "alice"},
+//  )
+//
+// Note that the keys in key-value pairs should be strings.
+// If you pass a non-string key panics a separate error is logged, but the key-value pair is skipped
+// and execution continues. Passing an orphaned key triggers similar behavior
+func WithGlobal(args ...interface{}) {
+	log = log.With(args...)
 }
 
 // With adds a variadic number of fields to the logging context. It accepts a
