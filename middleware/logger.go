@@ -70,7 +70,6 @@ func Log(level Level) func(h http.Handler) http.Handler {
 				"method", r.Method,
 				"endpoint", r.URL.String(),
 				"payload", payload,
-				"duration", time.Since(started).String(),
 			)
 
 			h.ServeHTTP(rw, r.WithContext(ctx))
