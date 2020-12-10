@@ -1,10 +1,13 @@
 package middleware
 
 import (
+	"bytes"
 	"context"
 	"crypto/rand"
 	"encoding/base64"
+	"encoding/json"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"time"
 
@@ -54,6 +57,22 @@ func Log(level Level) func(h http.Handler) http.Handler {
 
 			started := time.Now()
 			rw := captureResponse(w)
+
+			// copy request payload in case we will show it
+			buf, _ := ioutil.ReadAll(r.Body)
+			rdr1 := ioutil.NopCloser(bytes.NewBuffer(buf))
+			rdr2 := ioutil.NopCloser(bytes.NewBuffer(buf))
+			r.Body = rdr2 // OK since rdr2 implements the io.ReadCloser interface
+
+			var payload map[string]interface{}
+			json.NewDecoder(rdr1).Decode(&payload)
+			sugarLogger.Debugw("Default Log",
+				"method", r.Method,
+				"endpoint", r.URL.String(),
+				"payload", payload,
+				"duration", time.Since(started).String(),
+			)
+
 			h.ServeHTTP(rw, r.WithContext(ctx))
 			defer sugarLogger.Sync()
 			sugarLogger.Infow("Default Log",
