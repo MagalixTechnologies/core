@@ -97,7 +97,7 @@ func init() {
 		field := fl.Field()
 		switch field.Kind() {
 		case reflect.String:
-			_, err := opa_core.Parse(field.Interface().(string))
+			_, err := opa_core.Parse(field.Interface().(string), "violation")
 			if err != nil {
 				return false
 			}
@@ -118,7 +118,7 @@ func init() {
 	_ = v.RegisterTranslation("rego", trans, func(ut ut.Translator) error {
 		return ut.Add("rego", "{0} invalid rego policy: {1}", true) // see universal-translator for details
 	}, func(ut ut.Translator, fe validator.FieldError) string {
-		_, err := opa_core.Parse(fe.Value().(string))
+		_, err := opa_core.Parse(fe.Value().(string), "violation")
 		t, _ := ut.T("rego", fe.Field(), err.Error())
 		return t
 	})
