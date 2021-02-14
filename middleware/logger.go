@@ -80,7 +80,10 @@ func Log(level Level) func(h http.Handler) http.Handler {
 				"method", r.Method,
 				"endpoint", r.URL.String(),
 				"StatusCode", rw.StatusCode,
+				"bytes", rw.ContentLength,
+				"agent", r.Header.Get("User-Agent"),
 				"duration", time.Since(started).String(),
+				"duration-in-s", time.Since(started).Seconds(),
 			)
 		})
 	}
