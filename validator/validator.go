@@ -20,8 +20,7 @@ var Validator *validator.Validate
 var Translator ut.Translator
 
 const alphaNumericRegexString = "^[a-zA-Z0-9-_() ]+$"
-
-var alphaNumericRegex = regexp.MustCompile(alphaNumericRegexString)
+const identifierRegexString = "^[a-zA-Z0-9_]+$"
 
 func init() {
 	translator := en.New()
@@ -76,6 +75,18 @@ func init() {
 		}
 
 		return hasValue(fl)
+	})
+
+	identifierRegex := regexp.MustCompile(identifierRegexString)
+	_ = v.RegisterValidation(`identifier`, func(fl validator.FieldLevel) bool {
+		return identifierRegex.MatchString(fl.Field().String())
+	})
+
+	_ = v.RegisterTranslation("identifier", trans, func(ut ut.Translator) error {
+		return ut.Add("identifier", "{0} should only have alphabets, numbers, and underscores", true) // see universal-translator for details
+	}, func(ut ut.Translator, fe validator.FieldError) string {
+		t, _ := ut.T("identifier", fe.Field())
+		return t
 	})
 
 	// register custom validation: title(required if string should be alphanum and includes (), -, _).
