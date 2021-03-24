@@ -20,6 +20,7 @@ var Validator *validator.Validate
 var Translator ut.Translator
 
 const alphaNumericRegexString = "^[a-zA-Z0-9-_() ]+$"
+const whitespaceRegex = "^\\S+$"
 const alphaNumericUnderscoresRegexString = "^[a-zA-Z0-9_]+$"
 
 func init() {
@@ -99,6 +100,20 @@ func init() {
 		return ut.Add("alphadash", "{0} is should only have alphabets, numbers, (, ), -, _, spaces", true) // see universal-translator for details
 	}, func(ut ut.Translator, fe validator.FieldError) string {
 		t, _ := ut.T("alphadash", fe.Field())
+		return t
+	})
+
+	// register custom validation: does not include whitespaces.
+	whitespaceRegex := regexp.MustCompile(whitespaceRegex)
+	_ = v.RegisterValidation(`nowhitespace`, func(fl validator.FieldLevel) bool {
+		fmt.Println(fl.Field().String())
+		return whitespaceRegex.MatchString(fl.Field().String())
+	})
+
+	_ = v.RegisterTranslation("nowhitespace", trans, func(ut ut.Translator) error {
+		return ut.Add("nowhitespace", "{0} is should not have spaces", true) // see universal-translator for details
+	}, func(ut ut.Translator, fe validator.FieldError) string {
+		t, _ := ut.T("nowhitespace", fe.Field())
 		return t
 	})
 
