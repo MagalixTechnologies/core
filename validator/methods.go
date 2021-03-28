@@ -79,3 +79,19 @@ func StructExceptCtx(ctx context.Context, s interface{}, fields ...string) inter
 	validationErrs := err.(validator.ValidationErrors)
 	return validationErrs.Translate(Translator)
 }
+
+// StructPartialCtx validates the fields passed in only, ignoring all others and allows passing of contextual
+// validation validation information via context.Context
+// Fields may be provided in a namespaced fashion relative to the  struct provided
+// eg. NestedStruct.Field or NestedArrayField[0].Struct.Name
+//
+// It returns InvalidValidationError for bad values passed in and nil or ValidationErrors as error otherwise.
+// You will need to assert the error if it's not nil eg. err.(validator.ValidationErrors) to access the array of errors.
+func StructPartialCtx(ctx context.Context, s interface{}, fields ...string) interface{} {
+	err := Validator.StructPartialCtx(ctx, s, fields...)
+	if err == nil {
+		return nil
+	}
+	validationErrs := err.(validator.ValidationErrors)
+	return validationErrs.Translate(Translator)
+}
