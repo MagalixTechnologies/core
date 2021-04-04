@@ -85,7 +85,7 @@ func init() {
 	})
 
 	_ = v.RegisterTranslation("alphanumericunderscores", trans, func(ut ut.Translator) error {
-		return ut.Add("alphanumericunderscores", "{0} should only have alphabets, numbers, and underscores", true) // see universal-translator for details
+		return ut.Add("alphanumericunderscores", "{0} should only have alphanumeric, and underscores", true) // see universal-translator for details
 	}, func(ut ut.Translator, fe validator.FieldError) string {
 		t, _ := ut.T("alphanumericunderscores", fe.Field())
 		return t
@@ -98,7 +98,7 @@ func init() {
 	})
 
 	_ = v.RegisterTranslation("alphanumdashbraces", trans, func(ut ut.Translator) error {
-		return ut.Add("alphanumdashbraces", "{0} should only have alphabets, numbers, (, ), -, _, spaces", true) // see universal-translator for details
+		return ut.Add("alphanumdashbraces", "{0} should only have alphanumeric, (, ), -, _, spaces", true) // see universal-translator for details
 	}, func(ut ut.Translator, fe validator.FieldError) string {
 		t, _ := ut.T("alphanumdashbraces", fe.Field())
 		return t
@@ -110,7 +110,7 @@ func init() {
 	})
 
 	_ = v.RegisterTranslation("alphadash", trans, func(ut ut.Translator) error {
-		return ut.Add("alphadash", "{0} should only have alphabets, numbers, -, _", true) // see universal-translator for details
+		return ut.Add("alphadash", "{0} should only have alphanumeric, -, _", true) // see universal-translator for details
 	}, func(ut ut.Translator, fe validator.FieldError) string {
 		t, _ := ut.T("alphadash", fe.Field())
 		return t
