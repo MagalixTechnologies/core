@@ -71,7 +71,7 @@ func Log(level Level) func(h http.Handler) http.Handler {
 				headers := make(map[string][]string)
 				for name, values := range r.Header {
 					switch name {
-					case "Accept", "requestId", "Content-Length", "Content-Type", "User-Agent":
+					case "Accept", "X-Request-Id", "Content-Length", "Content-Type", "User-Agent", "X-B3-Parentspanid", "X-B3-Sampled", "X-B3-Spanid", "X-B3-Traceid", "X-Envoy-Attempt-Count", "X-Forwarded-Client-Cert", "X-Forwarded-Proto":
 						continue
 					default:
 						headers[name] = values
