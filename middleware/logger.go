@@ -67,10 +67,22 @@ func Log(level Level) func(h http.Handler) http.Handler {
 
 				var payload map[string]interface{}
 				json.NewDecoder(rdr1).Decode(&payload)
+
+				headers := make(map[string][]string)
+				for name, values := range r.Header {
+					switch name {
+					case "Accept", "X-Request-Id", "Content-Length", "Content-Type", "User-Agent", "X-B3-Parentspanid", "X-B3-Sampled", "X-B3-Spanid", "X-B3-Traceid", "X-Envoy-Attempt-Count", "X-Forwarded-Client-Cert", "X-Forwarded-Proto":
+						continue
+					default:
+						headers[name] = values
+					}
+				}
+
 				sugarLogger.Debugw("Default Log",
 					"method", r.Method,
 					"endpoint", r.URL.String(),
 					"payload", payload,
+					"headers", headers,
 				)
 			}
 
@@ -81,9 +93,7 @@ func Log(level Level) func(h http.Handler) http.Handler {
 				"endpoint", r.URL.String(),
 				"StatusCode", rw.StatusCode,
 				"bytes", rw.ContentLength,
-				"agent", r.Header.Get("User-Agent"),
 				"duration", time.Since(started).String(),
-				"duration-in-s", time.Since(started).Seconds(),
 			)
 		})
 	}
