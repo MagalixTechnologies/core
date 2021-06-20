@@ -145,7 +145,7 @@ func (c *Client) cacheableMethod(method string) bool {
 	return false
 }
 
-func (c *Client) ApplyOnRoutes(routes ...*URLMatch) func(next http.Handler) http.Handler {
+func (c *Client) ApplyMiddlewareOnSpecificRoutes(middleware func(http.Handler) http.Handler, routes ...*URLMatch) func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
 			for _, route := range routes {
@@ -154,7 +154,7 @@ func (c *Client) ApplyOnRoutes(routes ...*URLMatch) func(next http.Handler) http
 					params := r.URL.Query()
 					params.Set("account-id", accountID)
 					r.URL.RawQuery = params.Encode()
-					c.Middleware(next).ServeHTTP(rw, r)
+					middleware(next).ServeHTTP(rw, r)
 				} else {
 					if next != nil {
 						next.ServeHTTP(rw, r)
