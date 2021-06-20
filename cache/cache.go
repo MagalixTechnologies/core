@@ -145,7 +145,7 @@ func (c *Client) cacheableMethod(method string) bool {
 	return false
 }
 
-func (c *Client) ApplyMiddlewareOnSpecificRoutes(middleware func(http.Handler) http.Handler, routes ...*URLMatch) func(next http.Handler) http.Handler {
+func ApplyMiddlewareOnSpecificRoutes(middleware func(http.Handler) http.Handler, routes ...*URLMatch) func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
 			for _, route := range routes {
