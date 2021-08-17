@@ -23,6 +23,7 @@ const alphaNumericDashBracesRegexString = "^[a-zA-Z0-9-_() ]+$"
 const alphaDashRegex = "^[a-zA-Z0-9-_ ]+$"
 const whitespaceRegex = "^\\S+$"
 const alphaNumericUnderscoresRegexString = "^[a-zA-Z0-9_]+$"
+const alphaNumericUnderscoresAmpersandRegexString = "^[a-zA-Z0-9_&]+$"
 
 func init() {
 	translator := en.New()
@@ -88,6 +89,18 @@ func init() {
 		return ut.Add("alphanumericunderscores", "{0} should only have alphanumeric, and underscores", true) // see universal-translator for details
 	}, func(ut ut.Translator, fe validator.FieldError) string {
 		t, _ := ut.T("alphanumericunderscores", fe.Field())
+		return t
+	})
+
+	alphaNumericUnderscoresAmpersandRegex := regexp.MustCompile(alphaNumericUnderscoresAmpersandRegexString)
+	_ = v.RegisterValidation(`alphanumericunderscoresampersand`, func(fl validator.FieldLevel) bool {
+		return alphaNumericUnderscoresAmpersandRegex.MatchString(fl.Field().String())
+	})
+
+	_ = v.RegisterTranslation("alphanumericunderscoresampersand", trans, func(ut ut.Translator) error {
+		return ut.Add("alphanumericunderscoresampersand", "{0} should only have alphanumeric, underscores, and ampersand", true) // see universal-translator for details
+	}, func(ut ut.Translator, fe validator.FieldError) string {
+		t, _ := ut.T("alphanumericunderscoresampersand", fe.Field())
 		return t
 	})
 
