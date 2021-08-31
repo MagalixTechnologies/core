@@ -66,3 +66,17 @@ func ErrOther(err error, messages ...string) error {
 		httpCode: http.StatusInternalServerError,
 	}
 }
+
+func ErrNotAuthorized(messages ...string) error {
+	return &CoreError{
+		messages: messages,
+		httpCode: http.StatusUnauthorized,
+	}
+}
+
+func ErrForbidden(messages ...string) error {
+	return &CoreError{
+		messages: messages,
+		httpCode: http.StatusForbidden,
+	}
+}
