@@ -33,6 +33,14 @@ func (e *CoreError) Messages() []string {
 	return e.messages
 }
 
+// ErrBaseError allows specifying status code
+func ErrBaseError(statusCode int, messages ...string) error {
+	return &CoreError{
+		messages: messages,
+		httpCode: statusCode,
+	}
+}
+
 // ErrNotFound not found error
 func ErrNotFound(messages ...string) error {
 	return &CoreError{
@@ -67,6 +75,7 @@ func ErrOther(err error, messages ...string) error {
 	}
 }
 
+// ErrNotAuthorized not authorized error
 func ErrNotAuthorized(messages ...string) error {
 	return &CoreError{
 		messages: messages,
@@ -74,9 +83,18 @@ func ErrNotAuthorized(messages ...string) error {
 	}
 }
 
+// ErrForbidden frobidden request error
 func ErrForbidden(messages ...string) error {
 	return &CoreError{
 		messages: messages,
 		httpCode: http.StatusForbidden,
+	}
+}
+
+// ErrGone not available error
+func ErrGone(messages ...string) error {
+	return &CoreError{
+		messages: messages,
+		httpCode: http.StatusGone,
 	}
 }
