@@ -132,7 +132,6 @@ func init() {
 	// register custom validation: does not include whitespaces.
 	whitespaceRegex := regexp.MustCompile(whitespaceRegex)
 	_ = v.RegisterValidation(`nowhitespace`, func(fl validator.FieldLevel) bool {
-		fmt.Println(fl.Field().String())
 		return whitespaceRegex.MatchString(fl.Field().String())
 	})
 
