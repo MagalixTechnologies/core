@@ -5,6 +5,7 @@ import (
 	"io"
 
 	"github.com/opentracing/opentracing-go"
+	"github.com/uber/jaeger-client-go"
 	"github.com/uber/jaeger-client-go/config"
 )
 
@@ -20,6 +21,10 @@ func Init(service string) (TracerWithConfig, io.Closer) {
 		panic(fmt.Sprintf("ERROR: failed to read config from env vars: %v\n", err))
 	}
 	cfg.ServiceName = service
+	cfg.Headers = &jaeger.HeadersConfig{
+		TraceContextHeaderName:   "x-request-id",
+		TraceBaggageHeaderPrefix: "guid",
+	}
 	tracer, closer, err := cfg.NewTracer()
 	//tracer, closer, err := cfg.NewTracer()
 

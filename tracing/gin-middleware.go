@@ -89,7 +89,8 @@ func GinTracerMiddleware(tr opentracing.Tracer, cfg Config) gin.HandlerFunc {
 		span.SetTag("resource.name", resourceName)
 
 		// pass the span through the request context and serve the request to the next middleware
-		c.Request.WithContext(traceCtx)
+		r = r.WithContext(opentracing.ContextWithSpan(traceCtx, span))
+		Inject(span, r)
 		/*		if err := Inject(span, c.Request); err != nil {
 				}*/
 		c.Next()

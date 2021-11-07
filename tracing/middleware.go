@@ -68,12 +68,13 @@ func Tracer(tr opentracing.Tracer, cfg Config) func(next http.Handler) http.Hand
 				return
 			}
 			atomic.StoreInt64(&count, 0)
-
 			// Pass request through Tracer
 			serverSpanCtx, _ := tr.Extract(opentracing.HTTPHeaders, opentracing.HTTPHeadersCarrier(r.Header))
 			span, traceCtx := opentracing.StartSpanFromContextWithTracer(r.Context(), tr, cfg.OperationName, ext.RPCServerOption(serverSpanCtx))
 			defer span.Finish()
+
 			setHeadersTags(span, r)
+
 			defer func() {
 				if err := recover(); err != nil {
 					ext.HTTPStatusCode.Set(span, uint16(500))
@@ -107,7 +108,9 @@ func Tracer(tr opentracing.Tracer, cfg Config) func(next http.Handler) http.Hand
 
 			// pass the span through the request context and serve the request to the next middleware
 			ww := middleware.NewWrapResponseWriter(w, r.ProtoMajor)
-			next.ServeHTTP(ww, r.WithContext(traceCtx))
+			r = r.WithContext(opentracing.ContextWithSpan(traceCtx, span))
+			Inject(span, r)
+			next.ServeHTTP(ww, r)
 
 			// set the resource name as we get it only once the handler is executed
 			// resourceName := chi.RouteContext(r.Context()).RoutePattern()
