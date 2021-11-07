@@ -16,7 +16,7 @@ import (
 func getOperationName(r *http.Request) string {
 	reg := regexp.MustCompile("[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}")
 	url := r.URL.Path
-	url = string(reg.ReplaceAll([]byte(url), []byte(":arg")))
+	url = string(reg.ReplaceAll([]byte(url), []byte(":id")))
 	return fmt.Sprintf("%s::%s", r.Method, url)
 }
 func setHeadersTags(span opentracing.Span, r *http.Request) {
