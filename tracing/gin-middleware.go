@@ -20,11 +20,8 @@ func getOperationName(r *http.Request) string {
 	return fmt.Sprintf("%s::%s", r.Method, url)
 }
 func setHeadersTags(span opentracing.Span, r *http.Request) {
-	keys := []string{"X-USER", "X-ACCOUNT"}
-	for _, key := range keys {
-		if val := r.Header.Get(key); val != "" {
-			span.SetTag(key, val)
-		}
+	for k, v := range r.Header {
+		span.SetTag(fmt.Sprintf("header.%s", k), v)
 	}
 }
 func GinTracerMiddleware(tr opentracing.Tracer, cfg Config) gin.HandlerFunc {
