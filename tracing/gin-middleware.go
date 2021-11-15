@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"regexp"
 	"runtime/debug"
+	"strings"
 	"sync/atomic"
 
 	"github.com/gin-gonic/gin"
@@ -21,7 +22,7 @@ func getOperationName(r *http.Request) string {
 }
 func setHeadersTags(span opentracing.Span, r *http.Request) {
 	for k, v := range r.Header {
-		span.SetTag(fmt.Sprintf("header.%s", k), v)
+		span.SetTag(fmt.Sprintf("header.%s", k), strings.Join(v, ", "))
 	}
 }
 func GinTracerMiddleware(tr opentracing.Tracer, cfg Config) gin.HandlerFunc {
