@@ -19,11 +19,6 @@ import (
 var Validator *validator.Validate
 var Translator ut.Translator
 
-const alphaNumericDashBracesRegexString = "^[a-zA-Z0-9-_() ]+$"
-const alphaDashRegex = "^[a-zA-Z0-9-_ ]+$"
-const whitespaceRegex = "^\\S+$"
-const alphaNumericUnderscoresRegexString = "^[a-zA-Z0-9_]+$"
-
 func init() {
 	translator := en.New()
 	uni := ut.New(translator, translator)
@@ -79,56 +74,20 @@ func init() {
 		return hasValue(fl)
 	})
 
-	alphaNumericUnderscoresRegex := regexp.MustCompile(alphaNumericUnderscoresRegexString)
-	_ = v.RegisterValidation(`alphanumericunderscores`, func(fl validator.FieldLevel) bool {
-		return alphaNumericUnderscoresRegex.MatchString(fl.Field().String())
-	})
+	for i := range CUSTOMVALIDATIONS {
+		customValidation := CUSTOMVALIDATIONS[i]
+		regexTag := regexp.MustCompile(customValidation.RegexStr)
+		_ = v.RegisterValidation(customValidation.Tag, func(fl validator.FieldLevel) bool {
+			return regexTag.MatchString(fl.Field().String())
+		})
 
-	_ = v.RegisterTranslation("alphanumericunderscores", trans, func(ut ut.Translator) error {
-		return ut.Add("alphanumericunderscores", "{0} should only have alphanumeric, and underscores", true) // see universal-translator for details
-	}, func(ut ut.Translator, fe validator.FieldError) string {
-		t, _ := ut.T("alphanumericunderscores", fe.Field())
-		return t
-	})
-
-	// register custom validation: title(required if string should be alphanum and includes (), -, _).
-	alphaNumericDashBraceRegex := regexp.MustCompile(alphaNumericDashBracesRegexString)
-	_ = v.RegisterValidation(`alphanumdashbraces`, func(fl validator.FieldLevel) bool {
-		return alphaNumericDashBraceRegex.MatchString(fl.Field().String())
-	})
-
-	_ = v.RegisterTranslation("alphanumdashbraces", trans, func(ut ut.Translator) error {
-		return ut.Add("alphanumdashbraces", "{0} should only have alphanumeric, (, ), -, _, spaces", true) // see universal-translator for details
-	}, func(ut ut.Translator, fe validator.FieldError) string {
-		t, _ := ut.T("alphanumdashbraces", fe.Field())
-		return t
-	})
-
-	alphaDashRegex := regexp.MustCompile(alphaDashRegex)
-	_ = v.RegisterValidation(`alphadash`, func(fl validator.FieldLevel) bool {
-		return alphaDashRegex.MatchString(fl.Field().String())
-	})
-
-	_ = v.RegisterTranslation("alphadash", trans, func(ut ut.Translator) error {
-		return ut.Add("alphadash", "{0} should only have alphanumeric, -, _", true) // see universal-translator for details
-	}, func(ut ut.Translator, fe validator.FieldError) string {
-		t, _ := ut.T("alphadash", fe.Field())
-		return t
-	})
-
-	// register custom validation: does not include whitespaces.
-	whitespaceRegex := regexp.MustCompile(whitespaceRegex)
-	_ = v.RegisterValidation(`nowhitespace`, func(fl validator.FieldLevel) bool {
-		fmt.Println(fl.Field().String())
-		return whitespaceRegex.MatchString(fl.Field().String())
-	})
-
-	_ = v.RegisterTranslation("nowhitespace", trans, func(ut ut.Translator) error {
-		return ut.Add("nowhitespace", "{0} should not have spaces", true) // see universal-translator for details
-	}, func(ut ut.Translator, fe validator.FieldError) string {
-		t, _ := ut.T("nowhitespace", fe.Field())
-		return t
-	})
+		_ = v.RegisterTranslation(customValidation.Tag, trans, func(ut ut.Translator) error {
+			return ut.Add(customValidation.Tag, customValidation.Message, true) // see universal-translator for details
+		}, func(ut ut.Translator, fe validator.FieldError) string {
+			t, _ := ut.T(customValidation.Tag, fe.Field())
+			return t
+		})
+	}
 
 	// register custom validation: rfe(Required if Field is Equal to some value).
 	_ = v.RegisterValidation(`rego`, func(fl validator.FieldLevel) bool {
