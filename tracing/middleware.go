@@ -32,11 +32,6 @@ type Config struct {
 	// Skip particular requests from the Tracer
 	SkipFunc func(r *http.Request) bool
 
-	// SetTagFunc
-	//
-	// ...
-	// SetTagFunc func(r *http.Request) map[string]interface{}
-
 	// Tags
 	//
 	// Extra tags to include with a span
@@ -98,8 +93,7 @@ func Tracer(tr opentracing.Tracer, cfg Config) func(next http.Handler) http.Hand
 
 			span.SetTag("service.name", cfg.ServiceName)
 			span.SetTag("version", cfg.ServiceVersion)
-			/*			ext.SpanKind.Set(span, ext.SpanKindRPCServerEnum)
-			 */ext.HTTPMethod.Set(span, r.Method)
+			ext.HTTPMethod.Set(span, r.Method)
 			ext.HTTPUrl.Set(span, r.URL.Path)
 
 			resourceName := r.URL.Path
@@ -113,10 +107,6 @@ func Tracer(tr opentracing.Tracer, cfg Config) func(next http.Handler) http.Hand
 			next.ServeHTTP(ww, r)
 
 			// set the resource name as we get it only once the handler is executed
-			// resourceName := chi.RouteContext(r.Context()).RoutePattern()
-			// if resourceName == "" {
-			// 	resourceName = r.URL.Path
-			// }
 
 			// set the status code
 			status := ww.Status()

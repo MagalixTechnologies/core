@@ -26,7 +26,6 @@ func Init(service string) (TracerWithConfig, io.Closer) {
 		TraceBaggageHeaderPrefix: "guid",
 	}
 	tracer, closer, err := cfg.NewTracer()
-	//tracer, closer, err := cfg.NewTracer()
 
 	if err != nil {
 		panic(fmt.Sprintf("ERROR: cannot init Jaeger: %v\n", err))
