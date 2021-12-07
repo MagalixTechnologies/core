@@ -24,7 +24,7 @@ A middleware to cache requests based on  specified URLs & HTTP methods.
    //router could by any method that follows this interface of  func(http.Handler) http.Handler
    router.Use(cacheClient.Middleware)
    ```
-####Notes
+#### Notes
 To cache specific endpoints you could use the following.
 ```go
  allowedRoutes := []*cache.URLMatch{
