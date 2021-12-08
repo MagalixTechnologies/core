@@ -50,4 +50,10 @@ var CUSTOMVALIDATIONS = []CustomValidation{
 		Message:     "{0} should start and end with alphanumeric",
 		Description: "string should start and end with alphanumeric",
 	},
+	{
+		RegexStr:    `^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`,
+		Tag:         "rid",
+		Message:     "{0} must consist of lower case alphanumeric characters, -' or '.', and must start and end with an alphanumeric character",
+		Description: "string must consist of lower case alphanumeric characters, -' or '.', and must start and end with an alphanumeric character",
+	},
 }
