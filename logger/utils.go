@@ -19,13 +19,18 @@ const (
 )
 
 func New(level Level) Logger {
+	logger := NewZapLogger(level)
+	return logger.Sugar()
+}
+
+func NewZapLogger(level Level) *zap.Logger {
 	core := zap.NewProductionConfig()
 	core.Level = zap.NewAtomicLevelAt(getLevel(level))
 	core.EncoderConfig.TimeKey = "timestamp"
 	core.EncoderConfig.MessageKey = "message"
 	core.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
 	logger, _ := core.Build()
-	return logger.Sugar()
+	return logger
 }
 
 var log Logger
@@ -41,12 +46,7 @@ func init() {
 
 // Config sets configurations for global logger
 func Config(level Level) {
-	core := zap.NewProductionConfig()
-	core.Level = zap.NewAtomicLevelAt(getLevel(level))
-	core.EncoderConfig.MessageKey = "message"
-	core.EncoderConfig.TimeKey = "timestamp"
-	core.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
-	customLog, _ := core.Build()
+	customLog := NewZapLogger(level)
 	log = customLog.WithOptions(zap.AddCallerSkip(1)).Sugar()
 }
 
