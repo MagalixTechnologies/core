@@ -37,6 +37,8 @@ type PacketHello struct {
 	ClusterID        uuid.UUID `json:"cluster_id"`
 	K8sServerVersion string    `json:"k8s_server_version"`
 	ClusterProvider  string    `json:"cluster_provider"`
+	AgentPermissions string    `json:"agent_permissions"`
+	BuildVersion     string    `json:"build_version"`
 }
 
 // PacketAuthorizationRequest packet sent to request authorization
