@@ -12,4 +12,7 @@ require (
 	github.com/reconquest/karma-go v0.0.0-20190930125156-7b5c19ad6eab
 	go.uber.org/zap v1.15.0
 	goa.design/goa/v3 v3.1.1
+	github.com/open-policy-agent/opa v0.40.0
+	github.com/gogo/protobuf v1.3.2
+	gopkg.in/yaml.v2 v2.2.8
 )
