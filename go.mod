@@ -3,16 +3,9 @@ module github.com/MagalixTechnologies/core
 go 1.12
 
 require (
-	github.com/MagalixCorp/magalix-agent v0.0.0-20200115000009-87e1c6775479
-	github.com/MagalixCorp/magalix-agent/v3 v3.6.1
-	github.com/MagalixTechnologies/core/logger v1.0.3
-	github.com/dimfeld/httptreemux/v5 v5.1.0 // indirect
-	github.com/gorilla/websocket v1.4.2 // indirect
-	github.com/kovetskiy/lorg v0.0.0-20200107130803-9a7136a95634 // indirect
-	github.com/reconquest/karma-go v0.0.0-20190930125156-7b5c19ad6eab
-	go.uber.org/zap v1.15.0
-	goa.design/goa/v3 v3.1.1
-	github.com/open-policy-agent/opa v0.40.0
-	github.com/gogo/protobuf v1.3.2
-	gopkg.in/yaml.v2 v2.2.8
+	github.com/MagalixTechnologies/opa-core v1.0.7
+	github.com/go-playground/locales v0.14.0
+	github.com/go-playground/universal-translator v0.18.0
+	github.com/go-playground/validator/v10 v10.11.0
+	github.com/open-policy-agent/opa v0.40.0 // indirect
 )
